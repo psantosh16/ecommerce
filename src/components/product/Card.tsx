@@ -6,71 +6,69 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-
 import { Button } from "../ui/button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function ProductCard({
   title,
   price,
   description,
   image,
+  rating,
 }: {
   title: string;
   price: number;
   description: string;
+  rating: number;
   image: Array<any>;
 }) {
+  const router = useRouter();
   return (
     <Card className="grid hover:bg-gray-100/80">
-      <Dialog>
-        <CardHeader>
-          <DialogTrigger asChild>
+      <CardHeader>
+        <Image
+          src={"https:" + image[0].fields.file.url}
+          alt={title}
+          width={200}
+          height={200}
+          className="bg-zinc-100 rounded-xl"
+        />
+        <CardTitle className="text-left">{title}</CardTitle>
+        <p>
+          ₹{price}{" "}
+          <span className="text-red-500 line-through">{price + 100}</span>
+        </p>
+        <h1 className="flex flex-row space-x-1">
+          {Array.from({ length: 5 }, (_, i) => (
             <Image
-              src={"https:" + image[0].fields.file.url}
-              alt={title}
-              width={200}
-              height={200}
+              key={i}
+              src={
+                i < rating
+                  ? "/images/Star filled.svg"
+                  : "/images/Star Outline.svg"
+              }
+              alt="star"
+              width={20}
+              height={20}
             />
-          </DialogTrigger>
-          <DialogContent>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid grid-cols-1 gap-2">
-                {image.map((img) => (
-                  <Image
-                    key={img.sys.id}
-                    src={"https:" + img.fields.file.url}
-                    alt={title}
-                    width={1000}
-                    height={1000}
-                    className="rounded-xl"
-                  />
-                ))}
-              </div>
-              <div className="flex flex-col gap-4 bg-orange-50 p-4 rounded-xl">
-                <h1 className="font-bold text-3xl">{title}</h1>
-                <p>{description}</p>
-                <p>₹{price}</p>
-                <input type="number" placeholder="1" autoFocus required />
-                <Button>Add to Cart</Button>
-              </div>
-            </div>
-          </DialogContent>
-
-          <CardTitle className="text-left">{title}</CardTitle>
-          <p>
-            ₹{price}{" "}
-            <span className="text-red-500 line-through">{price + 100}</span>
-          </p>
-        </CardHeader>
-        <CardContent>
-          <CardDescription>{description.slice(0, 60) + "..."}</CardDescription>
-        </CardContent>
-        <CardFooter>
-          <Button>Add to Cart</Button>
-        </CardFooter>
-      </Dialog>
+          ))}
+        </h1>
+      </CardHeader>
+      <CardContent>
+        <CardDescription>{description.slice(0, 20) + "..."}</CardDescription>
+      </CardContent>
+      <CardFooter>
+        <Button
+          onClick={() => {
+            router.push(
+              `/product/${title.split(" ").join("-")}?title=${title}&price=${price}&rating=${rating}&description=${description}&image1=${image[0].fields.file.url}&image2=${image[1].fields.file.url}`,
+            );
+          }}
+        >
+          View more
+        </Button>
+      </CardFooter>
     </Card>
   );
 }

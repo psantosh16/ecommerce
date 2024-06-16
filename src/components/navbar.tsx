@@ -10,10 +10,10 @@ export default function Navbar() {
 
   const menus = [
     { title: "🛍️ ShopCart", path: "/" },
-    { title: "Electronics", path: "/electronics" },
-    { title: "Men", path: "/men" },
-    { title: "Women", path: "/women" },
-    { title: "Kids", path: "/kids" },
+    { title: "Electronics", path: "/product/electronics" },
+    { title: "Men", path: "/product/men" },
+    { title: "Women", path: "/product/women" },
+    { title: "Kids", path: "/product/kids" },
   ];
 
   return (
@@ -30,9 +30,11 @@ export default function Navbar() {
             </Button>
           </div>
           <div id="cart">
-            <Button size={"sm"} variant={"secondary"}>
-              🛒 Cart
-            </Button>
+            <Link href="/cart">
+              <Button size={"sm"} variant={"secondary"}>
+                🛒 Cart
+              </Button>
+            </Link>
           </div>
         </div>
         <div
@@ -40,12 +42,12 @@ export default function Navbar() {
             state ? "block" : "hidden"
           }`}
         >
-          <ul className="justify-left items-center space-y-4 md:flex md:space-x-6 md:space-y-0">
+          <ul className="justify-left items-center space-y-4 md:flex md:space-x-6 md:space-y-0 select-none">
             {menus.map((item, idx) => (
               <Button
                 key={idx}
                 variant={`${idx === 0 ? "ghost" : "link"}`}
-                className={`${idx === 0 ? "font-bold text-xl" : ""}`}
+                className={`${idx === 0 ? "font-bold text-xl block" : ""}`}
                 onClick={() => setState(!state)}
               >
                 <Link href={item.path}>{item.title}</Link>
