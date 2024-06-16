@@ -55,14 +55,14 @@ export default function Products({ type }: { type: string }) {
         <SelectContent>
           {tags.map((item) => (
             <SelectItem key={item.toLowerCase()} value={item.toLowerCase()}>
-              {item}
+              {item.toLocaleUpperCase()}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
 
       {category != "all" ? (
-        <div className="grid lg:grid-cols-4 md:grid-cols-3  gap-2 ">
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2  gap-2 ">
           {data
             .filter((item) => item.fields.type.toLowerCase().includes(category))
             .map((item) => (
@@ -72,11 +72,12 @@ export default function Products({ type }: { type: string }) {
                 price={item.fields.price}
                 description={item.fields.description}
                 image={item.fields.images}
+                rating={item.fields.rating}
               />
             ))}
         </div>
       ) : (
-        <div className="grid lg:grid-cols-4 md:grid-cols-3  gap-2 ">
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2  gap-2 ">
           {data.map((item) => (
             <ProductCard
               key={item.sys.id}
@@ -84,6 +85,7 @@ export default function Products({ type }: { type: string }) {
               price={item.fields.price}
               description={item.fields.description}
               image={item.fields.images}
+              rating={item.fields.rating}
             />
           ))}
         </div>
