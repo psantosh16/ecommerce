@@ -45,8 +45,8 @@ export default function ProductCard({
               key={i}
               src={
                 i < rating
-                  ? "/images/Star filled.svg"
-                  : "/images/Star Outline.svg"
+                  ? "/images/Star-filled.svg"
+                  : "/images/Star-outline.svg"
               }
               alt="star"
               width={20}
@@ -62,7 +62,7 @@ export default function ProductCard({
         <Button
           onClick={() => {
             router.push(
-              `/product/${title.split(" ").join("-")}?title=${title}&price=${price}&rating=${rating}&description=${description}&image1=${image[0].fields.file.url}&image2=${image[1].fields.file.url}`,
+              `/product/${title.split(" ").join("-")}?title=${title}&price=${price}&rating=${rating}&description=${description}&image1=${image[0].fields.file.url}&image2=${image[1].fields.file.url}`
             );
           }}
         >

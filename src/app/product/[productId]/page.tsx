@@ -63,8 +63,8 @@ export default function Page() {
               key={i}
               src={
                 i < rating
-                  ? "/images/Star filled.svg"
-                  : "/images/Star Outline.svg"
+                  ? "/images/Star-filled.svg"
+                  : "/images/Star-Outline.svg"
               }
               alt="star"
               width={20}
